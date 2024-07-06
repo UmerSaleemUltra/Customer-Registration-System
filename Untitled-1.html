@@ -82,7 +82,7 @@
         <h1>Secure Sign-Up and Login System</h1>
         
         <div id="signupForm">
-            <form action="index.html" id="signUp">
+            <form  id="signUp">
                 <label for="signUpName">Name:</label>
                 <input type="text" id="signUpName" required>
                 <label for="signUpEmail">Email:</label>
@@ -91,9 +91,14 @@
                 <input type="tel" id="signUpPhone" required>
                 <label for="signUpPassword">Password:</label>
                 <input type="password" id="signUpPassword" required>
-                <button type="submit">Sign Up</button>
+                <button onclick="index()" type="submit">Sign Up</button>
                 <p id="signUpError" class="error"></p>
                 <p id="signUpSuccess" class="success"></p>
             </form>
         </div>
       
+        <script>
+            function index() {
+            window.location('index.html')
+            }
+        </script>

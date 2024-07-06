@@ -6,12 +6,104 @@
     <title>Customer Registration System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 </head>
-<body>
+<body class="light-mode">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+             /* Light Theme Styles */
+             body.light-mode {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container.light-mode {
+            color: #333;
+        }
+
+        .mode-switch.light-mode .slider {
+            background-color: #ccc;
+        }
+
+        .mode-switch.light-mode input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        /* Dark Theme Styles */
+        body.dark-mode {
+            background-color: #333;
+            color: #f8f9fa;
+        }
+
+        .container.dark-mode {
+            color: #f8f9fa;
+        }
+
+        .mode-switch.dark-mode .slider {
+            background-color: #555;
+        }
+
+        .mode-switch.dark-mode input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        /* Common Styles */
+        .container {
+            text-align: center;
+        }
+
+        .mode-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .mode-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Icon Styles */
+        .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            transition: opacity 0.3s;
+        }
+
+        input:checked + .slider .fa-sun {
+            opacity: 0;
+        }
+
+        input:checked + .slider .fa-moon {
+            opacity: 1;
         }
 
         .container {
@@ -82,6 +174,16 @@
         }
     </style>
     <h1>Customer Registration System</h1>
+    <div class="container">
+        <h2>Dark/Light Mode Switch</h2>
+        <label class="mode-switch">
+            <input type="checkbox" id="modeToggle">
+            <span class="slider">
+                <i class="fas fa-sun icon"></i>
+                <i class="fas fa-moon icon" style="opacity: 0;"></i>
+            </span>
+        </label>
+    </div>
     <div class="container">
         <form id="customerForm">
             <label for="name">Name:</label>
@@ -205,6 +307,38 @@
         // Load customers from local storage on page load
         let customers = JSON.parse(localStorage.getItem('customers')) || [];
         displayCustomers();
+        const modeToggle = document.getElementById('modeToggle');
+
+modeToggle.addEventListener('change', function() {
+    if (this.checked) {
+        enableDarkMode();
+    } else {
+        disableDarkMode();
+    }
+});
+
+function enableDarkMode() {
+    document.body.classList.add('dark-mode');
+    document.querySelectorAll('.container').forEach(container => {
+        container.classList.add('dark-mode');
+    });
+}
+
+function disableDarkMode() {
+    document.body.classList.remove('dark-mode');
+    document.querySelectorAll('.container').forEach(container => {
+        container.classList.remove('dark-mode');
+    });
+}
+
+
+
+
+
+
+
+
+        
     </script>
 </body>
 </html>
