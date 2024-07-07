@@ -307,16 +307,20 @@
         // Load customers from local storage on page load
         let customers = JSON.parse(localStorage.getItem('customers')) || [];
         displayCustomers();
-        const modeToggle = document.getElementById('modeToggle');
+       // Event listener for mode toggle
+const modeToggle = document.getElementById('modeToggle');
 
 modeToggle.addEventListener('change', function() {
     if (this.checked) {
         enableDarkMode();
+        localStorage.setItem('enableDarkMode', true); // Save dark mode state to local storage
     } else {
         disableDarkMode();
+        localStorage.setItem('enableDarkMode', false); // Save light mode state to local storage
     }
 });
 
+// Function to enable dark mode
 function enableDarkMode() {
     document.body.classList.add('dark-mode');
     document.querySelectorAll('.container').forEach(container => {
@@ -324,6 +328,7 @@ function enableDarkMode() {
     });
 }
 
+// Function to disable dark mode
 function disableDarkMode() {
     document.body.classList.remove('dark-mode');
     document.querySelectorAll('.container').forEach(container => {
@@ -331,9 +336,15 @@ function disableDarkMode() {
     });
 }
 
-
-
-
+// Load dark mode state from local storage on page load
+const isDarkModeEnabled = JSON.parse(localStorage.getItem('enableDarkMode'));
+if (isDarkModeEnabled) {
+    modeToggle.checked = true;
+    enableDarkMode();
+} else {
+    modeToggle.checked = false;
+    disableDarkMode();
+}
 
 
 
